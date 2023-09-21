@@ -189,6 +189,7 @@ build() {
     --enable-libtheora \
     --enable-libv4l2 \
     --enable-libvidstab \
+    --enable-libvmaf \
     --enable-libvorbis \
     --enable-libvpx \
     --enable-libwebp \
