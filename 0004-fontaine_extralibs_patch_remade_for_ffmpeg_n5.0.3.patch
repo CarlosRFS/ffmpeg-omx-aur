@@ -1,0 +1,41 @@
+From ffb102cc36854fbfcb3198549a5fbe5516fcc939 Mon Sep 17 00:00:00 2001
+From: Carlos Raimundo de Freitas Sotero <carlosrfs99@gmail.com>
+Date: Sat, 23 Sep 2023 15:18:43 -0300
+Subject: [PATCH] This changes was based on fontaine patch but adapted to
+ n5.0.3 ffmpeg tag. Fontaine original patch:
+ https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0004-configure-add-extralibs-to-extralibs_xxx.patch
+
+---
+ configure | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/configure b/configure
+index b2fd26e710..3cb08a37fa 100755
+--- a/configure
++++ b/configure
+@@ -7889,14 +7889,14 @@ rpath=$(enabled rpath && echo "-Wl,-rpath,\${libdir}")
+ source_path=${source_path}
+ LIBPREF=${LIBPREF}
+ LIBSUF=${LIBSUF}
+-extralibs_avutil="$avutil_extralibs"
+-extralibs_avcodec="$avcodec_extralibs"
+-extralibs_avformat="$avformat_extralibs"
+-extralibs_avdevice="$avdevice_extralibs"
+-extralibs_avfilter="$avfilter_extralibs"
+-extralibs_postproc="$postproc_extralibs"
+-extralibs_swscale="$swscale_extralibs"
+-extralibs_swresample="$swresample_extralibs"
++extralibs_avutil="$avutil_extralibs $extralibs"
++extralibs_avcodec="$avcodec_extralibs $extralibs"
++extralibs_avformat="$avformat_extralibs $extralibs"
++extralibs_avdevice="$avdevice_extralibs $extralibs"
++extralibs_avfilter="$avfilter_extralibs $extralibs"
++extralibs_postproc="$postproc_extralibs $extralibs"
++extralibs_swscale="$swscale_extralibs $extralibs"
++extralibs_swresample="$swresample_extralibs $extralibs"
+ EOF
+ 
+ for lib in $LIBRARY_LIST; do
+-- 
+2.41.0
+
