@@ -137,6 +137,7 @@ pkgver() {
 }
 
 prepare() {
+  cp 0004-fontaine_extralibs_patch_remade_for_ffmpeg_n5.0.3.patch ${srcdir}/
   cd ffmpeg
   git cherry-pick -n 988f2e9eb063db7c1a678729f58aab6eba59a55b # fix nvenc on older gpus
   git cherry-pick -n 031f1561cd286596cdb374da32f8aa816ce3b135 # remove compressed_ten_bit_format
