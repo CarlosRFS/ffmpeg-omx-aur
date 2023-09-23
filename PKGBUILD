@@ -81,7 +81,8 @@ provides=(
   libswresample.so
   libswscale.so
 )
-_tag=71fb6132637a2a430375c24afc381fff8b854fe7
+#_tag=71fb6132637a2a430375c24afc381fff8b854fe7 #4.4.4
+_tag=0e15444aceca0e78f99f3d67758eb79d11b86599 #n5.0.3
 source=(
   "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0001-swscale-x86-yuv2rgb-Fix-build-without-SSSE3.patch"
   "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0002-avcodec-vaapi_h264-skip-decode-if-pic-has-no-slices.patch"
@@ -152,7 +153,9 @@ build() {
     --prefix=$prefix \
     --disable-debug \
     --disable-doc \
-    --enable-programs \
+    --enable-ffmpeg \
+    --enable-ffprobe \
+    --enable-ffplay \
     --disable-static \
     --disable-stripping \
     --enable-amf \
