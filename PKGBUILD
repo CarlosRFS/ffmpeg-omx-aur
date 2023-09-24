@@ -87,8 +87,6 @@ source=(
   "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0001-swscale-x86-yuv2rgb-Fix-build-without-SSSE3.patch"
   "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0002-avcodec-vaapi_h264-skip-decode-if-pic-has-no-slices.patch"
   "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0003-libavutil-Fix-mips-build.patch"
-  "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0005-avcodec-add-omx-decoder-support.patch"
-  "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0006-add-hevc-decoder-and-encoder-support.patch"
   "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0007-avcoder-fix-decoder-bug.patch"
   "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0008-fix-omx-decoder-setting-pix-fmt-bug.patch"
   "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0009-ffmpeg-add-mjpeg-decoder-support-and-fix-some-bug.patch"
@@ -110,8 +108,6 @@ md5sums=(
   7ccec04db2c458b7b29109fa4223935d
   59c6098207203b8366e4bb35d899a32c
   15c3db0366ed40b685b78ed571e161dd
-  8cacfd45691e47bfff3a7bea8055b072
-  6ae455aada902b0bdf68b14beb6e9248
   a59f157db51c06e43865ee207ff8f966
   4a344c5afc07355c057796b2dd554257
   a67b17d52837483507e1553962acc848
@@ -136,7 +132,7 @@ pkgver() {
 }
 
 prepare() {
-  cp ../0004-fontaine_extralibs_patch_remade_for_ffmpeg_n5.0.3.patch ${srcdir}/
+  cp ../ported_patchs/*.patch ${srcdir}/
   cd ffmpeg
   git cherry-pick -n 988f2e9eb063db7c1a678729f58aab6eba59a55b # fix nvenc on older gpus
   git cherry-pick -n 031f1561cd286596cdb374da32f8aa816ce3b135 # remove compressed_ten_bit_format
