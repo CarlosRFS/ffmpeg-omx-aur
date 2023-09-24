@@ -87,9 +87,6 @@ source=(
   "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0001-swscale-x86-yuv2rgb-Fix-build-without-SSSE3.patch"
   "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0002-avcodec-vaapi_h264-skip-decode-if-pic-has-no-slices.patch"
   "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0003-libavutil-Fix-mips-build.patch"
-  "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0007-avcoder-fix-decoder-bug.patch"
-  "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0008-fix-omx-decoder-setting-pix-fmt-bug.patch"
-  "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0009-ffmpeg-add-mjpeg-decoder-support-and-fix-some-bug.patch"
   "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0010-ffmpeg-support-to-change-gop.patch"
   "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0011-ffmpeg-add-delay-for-decoding.patch"
   "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0012-ffmpeg-add-omx_pix_fmt.patch"
@@ -108,9 +105,6 @@ md5sums=(
   7ccec04db2c458b7b29109fa4223935d
   59c6098207203b8366e4bb35d899a32c
   15c3db0366ed40b685b78ed571e161dd
-  a59f157db51c06e43865ee207ff8f966
-  4a344c5afc07355c057796b2dd554257
-  a67b17d52837483507e1553962acc848
   b387aa021064aa1f00ee6c0f1441a217
   50f1f3675296f6ce50951bda71bd0eb6
   9b725a3fd82f8d7606ec0beebddb41a9
