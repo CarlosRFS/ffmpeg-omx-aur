@@ -88,8 +88,6 @@ source=(
   "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0002-avcodec-vaapi_h264-skip-decode-if-pic-has-no-slices.patch"
   "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0003-libavutil-Fix-mips-build.patch"
   "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0010-ffmpeg-support-to-change-gop.patch"
-  "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0011-ffmpeg-add-delay-for-decoding.patch"
-  "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0012-ffmpeg-add-omx_pix_fmt.patch"
   "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0013-ffmpeg-replace-the-indent-with-space.patch"
   "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0014-ffmpeg-add-pixel-foramt.patch"
   "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0015-ffmpeg-remove-delay.patch"
@@ -106,8 +104,6 @@ md5sums=(
   59c6098207203b8366e4bb35d899a32c
   15c3db0366ed40b685b78ed571e161dd
   b387aa021064aa1f00ee6c0f1441a217
-  50f1f3675296f6ce50951bda71bd0eb6
-  9b725a3fd82f8d7606ec0beebddb41a9
   a6af1c12d137f12cf54860c515d9de42
   f8e0bfa2040805538af1cb1f980f5109
   848d3f63316256af72da5c1400ba3892
