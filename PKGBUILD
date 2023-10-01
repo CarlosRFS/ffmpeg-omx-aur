@@ -82,37 +82,14 @@ provides=(
   libswscale.so
 )
 #_tag=71fb6132637a2a430375c24afc381fff8b854fe7 #4.4.4
-_tag=0e15444aceca0e78f99f3d67758eb79d11b86599 #n5.0.3
+#_tag=0e15444aceca0e78f99f3d67758eb79d11b86599 #n5.0.3
+_tag=ea3d24bbe3c58b171e55fe2151fc7ffaca3ab3d2 #n6.0
 source=(
-  "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0001-swscale-x86-yuv2rgb-Fix-build-without-SSSE3.patch"
   "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0002-avcodec-vaapi_h264-skip-decode-if-pic-has-no-slices.patch"
-  "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0003-libavutil-Fix-mips-build.patch"
-  "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0010-ffmpeg-support-to-change-gop.patch"
-  "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0013-ffmpeg-replace-the-indent-with-space.patch"
-  "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0014-ffmpeg-add-pixel-foramt.patch"
-  "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0015-ffmpeg-remove-delay.patch"
-  "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0016-FFmpeg-omx-add-scale-option-for-omx.patch"
-  "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0017-FFmpeg-omxdec-add-mirror-rotation-and-crop-option.patch"
-  "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0018-FFmpeg-omx-gop-parameter-of-hevc-encoder.patch"
-  "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0019-FFmpeg-omcdec-fix-mjpeg_omx-decoder-scale-option-bug.patch"
-  "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0020-FFmpeg-omxdec-modify-the-range-of-width-and-height-o.patch"
-  "https://github.com/starfive-tech/Debian/raw/v0.9.0-engineering-release-wayland/multimedia/patch/ffmpeg/0021-FFmpeg-omxdec-set-pts-of-avframe-and-fix-some-compil.patch"
   "git+https://git.ffmpeg.org/ffmpeg.git#tag=${_tag}"
 )
 md5sums=(
-  7ccec04db2c458b7b29109fa4223935d
   59c6098207203b8366e4bb35d899a32c
-  15c3db0366ed40b685b78ed571e161dd
-  b387aa021064aa1f00ee6c0f1441a217
-  a6af1c12d137f12cf54860c515d9de42
-  f8e0bfa2040805538af1cb1f980f5109
-  848d3f63316256af72da5c1400ba3892
-  0fdefb146c46a1acc5967b023b6fa68a
-  3e33479e89a88d711093e79cfb75a3b1
-  d946a935b83ec6b68f4ab55b63fd9cbc
-  f25d606e06567a94cbf8c19e29c70907
-  74391b65719cc1652675f89739d307b0
-  88bc6012019dcaed3c464325a03fa21a
   SKIP
 )
 

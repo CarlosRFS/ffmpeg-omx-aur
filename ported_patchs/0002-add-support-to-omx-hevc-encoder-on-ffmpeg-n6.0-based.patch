@@ -1,0 +1,111 @@
+From 608c607535abab0b1b6eb5f7930e1654ca2dc859 Mon Sep 17 00:00:00 2001
+From: Carlos Raimundo de Freitas Sotero <carlosrfs99@gmail.com>
+Date: Thu, 28 Sep 2023 09:03:55 -0300
+Subject: [PATCH 2/6] add support to omx hevc encoder on ffmpeg n6.0 based on
+ starfive tech patches:
+ https://github.com/starfive-tech/Debian/tree/20221225T084846Z/multimedia/patch/ffmpeg
+
+---
+ configure              |  1 +
+ libavcodec/allcodecs.c |  1 +
+ libavcodec/omx.c       | 35 +++++++++++++++++++++++++++++++++++
+ 3 files changed, 37 insertions(+)
+
+diff --git a/configure b/configure
+index b73b87d5fc..d3d4ef916f 100755
+--- a/configure
++++ b/configure
+@@ -3186,6 +3186,7 @@ h264_vaapi_encoder_select="atsc_a53 cbs_h264 vaapi_encode"
+ h264_v4l2m2m_decoder_deps="v4l2_m2m h264_v4l2_m2m"
+ h264_v4l2m2m_decoder_select="h264_mp4toannexb_bsf"
+ h264_v4l2m2m_encoder_deps="v4l2_m2m h264_v4l2_m2m"
++hevc_omx_encoder_deps="omx"
+ hevc_amf_encoder_deps="amf"
+ hevc_cuvid_decoder_deps="cuvid"
+ hevc_cuvid_decoder_select="hevc_mp4toannexb_bsf"
+diff --git a/libavcodec/allcodecs.c b/libavcodec/allcodecs.c
+index e593ad19af..5b24a8c871 100644
+--- a/libavcodec/allcodecs.c
++++ b/libavcodec/allcodecs.c
+@@ -855,6 +855,7 @@ extern const FFCodec ff_hevc_mediacodec_decoder;
+ extern const FFCodec ff_hevc_mediacodec_encoder;
+ extern const FFCodec ff_hevc_mf_encoder;
+ extern const FFCodec ff_hevc_nvenc_encoder;
++extern const FFCodec ff_hevc_omx_encoder;
+ extern const FFCodec ff_hevc_qsv_encoder;
+ extern const FFCodec ff_hevc_v4l2m2m_encoder;
+ extern const FFCodec ff_hevc_vaapi_encoder;
+diff --git a/libavcodec/omx.c b/libavcodec/omx.c
+index 6e667971ea..688540cea5 100644
+--- a/libavcodec/omx.c
++++ b/libavcodec/omx.c
+@@ -44,6 +44,7 @@
+ #include "codec_internal.h"
+ #include "h264.h"
+ #include "pthread_internal.h"
++#include "profiles.h"
+ 
+ #ifdef OMX_SKIP64BIT
+ static OMX_TICKS to_omx_ticks(int64_t value)
+@@ -508,6 +509,8 @@ static av_cold int omx_component_init(AVCodecContext *avctx, const char *role)
+         out_port_params.format.video.eCompressionFormat = OMX_VIDEO_CodingMPEG4;
+     else if (avctx->codec->id == AV_CODEC_ID_H264)
+         out_port_params.format.video.eCompressionFormat = OMX_VIDEO_CodingAVC;
++    else if (avctx->codec->id == AV_CODEC_ID_HEVC)
++        out_port_params.format.video.eCompressionFormat = OMX_VIDEO_CodingHEVC;
+ 
+     err = OMX_SetParameter(s->handle, OMX_IndexParamPortDefinition, &out_port_params);
+     CHECK(err);
+@@ -666,6 +669,9 @@ static av_cold int omx_encode_init(AVCodecContext *avctx)
+     case AV_CODEC_ID_H264:
+         role = "video_encoder.avc";
+         break;
++    case AV_CODEC_ID_HEVC:
++        role = "video_encoder.hevc";
++        break;
+     default:
+         return AVERROR(ENOSYS);
+     }
+@@ -926,6 +932,13 @@ static const AVOption options[] = {
+     { NULL }
+ };
+ 
++static const AVOption options_hevc[] = {
++	{ "omx_libname", "OpenMAX library name", OFFSET(libname), AV_OPT_TYPE_STRING, { 0 }, 0, 0, VDE },
++	{ "omx_libprefix", "OpenMAX library prefix", OFFSET(libprefix), AV_OPT_TYPE_STRING, { 0 }, 0, 0, VDE },
++	{ "zerocopy", "Try to avoid copying input frames if possible", OFFSET(input_zerocopy), AV_OPT_TYPE_INT, { .i64 = CONFIG_OMX_RPI }, 0, 1, VE },
++	{ NULL },
++};
++
+ static const enum AVPixelFormat omx_encoder_pix_fmts[] = {
+     AV_PIX_FMT_YUV420P, AV_PIX_FMT_NONE
+ };
+@@ -971,3 +984,25 @@ const FFCodec ff_h264_omx_encoder = {
+     .caps_internal    = FF_CODEC_CAP_INIT_CLEANUP,
+     .p.priv_class     = &omx_h264enc_class,
+ };
++
++static const AVClass omx_hevcenc_class = {
++    .class_name = "hevc_omx",
++    .item_name  = av_default_item_name,
++    .option     = options_hevc,
++    .version    = LIBAVUTIL_VERSION_INT,
++};
++const FFCodec ff_hevc_omx_encoder = {
++    .p.name           = "hevc_omx",
++    CODEC_LONG_NAME("OpenMAX IL HEVC video encoder"),
++    .p.type           = AVMEDIA_TYPE_VIDEO,
++    .p.id             = AV_CODEC_ID_HEVC,
++    .priv_data_size   = sizeof(OMXCodecContext),
++    .init             = omx_encode_init,
++    FF_CODEC_ENCODE_CB(omx_encode_frame),
++    .close            = omx_encode_end,
++    .p.pix_fmts       = omx_encoder_pix_fmts,
++    .p.profiles       = NULL_IF_CONFIG_SMALL(ff_hevc_profiles),
++    .p.capabilities   = AV_CODEC_CAP_DELAY,
++    .caps_internal    = FF_CODEC_CAP_INIT_THREADSAFE | FF_CODEC_CAP_INIT_CLEANUP,
++    .p.priv_class     = &omx_hevcenc_class,
++};
+-- 
+2.41.0
+
