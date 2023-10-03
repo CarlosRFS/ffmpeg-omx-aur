@@ -1,7 +1,7 @@
 From be110abba45e5b06678c8ccdc855c718b08e52d7 Mon Sep 17 00:00:00 2001
 From: Carlos Raimundo de Freitas Sotero <carlosrfs99@gmail.com>
 Date: Mon, 2 Oct 2023 22:12:46 -0300
-Subject: [PATCH 2/2] add support to omx hevc encoder on ffmpeg n6.0 based on
+Subject: [PATCH 2/4] add support to omx hevc encoder on ffmpeg n6.0 based on
  starfive tech patches:
  https://github.com/starfive-tech/Debian/tree/20221225T084846Z/multimedia/patch/ffmpeg
 

@@ -1,0 +1,61 @@
+From 33dc8dc87613dfc77803aa4a8876b3d9f1c23cb9 Mon Sep 17 00:00:00 2001
+From: Carlos Raimundo de Freitas Sotero <carlosrfs99@gmail.com>
+Date: Tue, 3 Oct 2023 10:37:16 -0300
+Subject: [PATCH 4/4] add pixel format option for omx hevc encoder on ffmpeg
+ n6.0 based on starfive tech patches:
+ https://github.com/starfive-tech/buildroot/tree/5905c51a7d74d935821af23ec34e51b04c0bf516/package/ffmpeg
+
+---
+ libavcodec/omx.c | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
+
+diff --git a/libavcodec/omx.c b/libavcodec/omx.c
+index 43d2687c6b..18a9fbc5ce 100644
+--- a/libavcodec/omx.c
++++ b/libavcodec/omx.c
+@@ -463,18 +463,32 @@ static av_cold int omx_component_init(AVCodecContext *avctx, const char *role)
+             break;
+         }
+     }
++
+     if (s->color_format == 0) {
+         av_log(avctx, AV_LOG_ERROR, "No supported pixel formats (%d formats available)\n", i);
+         return AVERROR_UNKNOWN;
+     }
+ 
++    av_log(avctx, AV_LOG_VERBOSE, "OMX setting pixel_format:%s\n", av_get_pix_fmt_name(avctx->pix_fmt));
+     in_port_params.bEnabled   = OMX_TRUE;
+     in_port_params.bPopulated = OMX_FALSE;
+     in_port_params.eDomain    = OMX_PortDomainVideo;
+ 
+     in_port_params.format.video.pNativeRender         = NULL;
+     in_port_params.format.video.bFlagErrorConcealment = OMX_FALSE;
+-    in_port_params.format.video.eColorFormat          = s->color_format;
++    switch(avctx->pix_fmt) {
++        case AV_PIX_FMT_NV12:
++            in_port_params.format.video.eColorFormat = OMX_COLOR_FormatYUV420SemiPlanar;
++	    break;
++        case AV_PIX_FMT_NV21:
++            in_port_params.format.video.eColorFormat = OMX_COLOR_FormatYVU420SemiPlanar;
++	    break;
++        case AV_PIX_FMT_YUV420P:
++            in_port_params.format.video.eColorFormat = OMX_COLOR_FormatYUV420Planar;
++	    break;
++        default:
++	    return AVERROR_OPTION_NOT_FOUND;
++    }
+     s->stride     = avctx->width;
+     s->plane_size = avctx->height;
+     // If specific codecs need to manually override the stride/plane_size,
+@@ -969,7 +983,7 @@ static const AVOption options_hevc[] = {
+ };
+ 
+ static const enum AVPixelFormat omx_encoder_pix_fmts[] = {
+-    AV_PIX_FMT_YUV420P, AV_PIX_FMT_NONE
++    AV_PIX_FMT_YUV420P, AV_PIX_FMT_NV12, AV_PIX_FMT_NV21, AV_PIX_FMT_NONE
+ };
+ 
+ static const AVClass omx_mpeg4enc_class = {
+-- 
+2.41.0
+

@@ -1,7 +1,7 @@
 From 89101831bb5426ef1daaaf3e25e1dcb552df913b Mon Sep 17 00:00:00 2001
 From: Carlos Raimundo de Freitas Sotero <carlosrfs99@gmail.com>
 Date: Mon, 2 Oct 2023 20:50:57 -0300
-Subject: [PATCH 1/2] Add extralibs to extralibs_xxx (e.g. extralibs_avformat)
+Subject: [PATCH 1/4] Add extralibs to extralibs_xxx (e.g. extralibs_avformat)
  to allow applications such as motion to retrieve ffmpeg dependencies such as
  -latomic through pkg-config based on fontaine patch:
  https://github.com/starfive-tech/Debian/blob/20221225T084846Z/multimedia/patch/ffmpeg/0004-configure-add-extralibs-to-extralibs_xxx.patch
